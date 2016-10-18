@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
   "parameters": {
     "virtualMachines_azaub_presql01_adminPassword": {
-      "value": "nurun123!"
+      "value": null
     },
     "virtualMachines_azaub_presql01_primary": {
       "value": true
