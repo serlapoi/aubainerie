@@ -50,7 +50,8 @@
       "location": "eastus",
       "tags": {
         "1": "2",
-        "Description": "Pre Database"
+        "Description": "Pre Database",
+        "VM-rg": "azaub-presql01-rg"
       },
       "properties": {
         "availabilitySet": {
@@ -70,7 +71,7 @@
             "name": "[parameters('virtualMachines_azaub_presql01_name')]",
             "createOption": "FromImage",
             "vhd": {
-              "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountpredata_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_presql01_name'),'2016389463.vhd'))]"
+              "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountpredata_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_presql01_name'),'20161018.vhd'))]"
             },
             "caching": "ReadWrite"
           },
@@ -89,7 +90,7 @@
         },
         "osProfile": {
           "computerName": "[parameters('virtualMachines_azaub_presql01_name')]",
-          "adminUsername": "serge.lapointe",
+          "adminUsername": "ops",
           "linuxConfiguration": {
             "disablePasswordAuthentication": true,
             "ssh": {
