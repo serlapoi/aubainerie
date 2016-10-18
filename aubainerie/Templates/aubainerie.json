@@ -1,0 +1,2029 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_azaub_opvmas01_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "virtualMachines_azaub_prdelb01_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "virtualMachines_azaub_prdsql01_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "virtualMachines_azaub_prdsql01_primary": {
+            "defaultValue": null,
+            "type": "Bool"
+        },
+        "virtualMachines_azaub_prdwww01_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "virtualMachines_azaub_prdwww01_primary": {
+            "defaultValue": null,
+            "type": "Bool"
+        },
+        "virtualMachines_azaub_prdwww02_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "virtualMachines_azaub_prdwww02_primary": {
+            "defaultValue": null,
+            "type": "Bool"
+        },
+        "virtualMachines_azaub_uatdkr01_adminPassword": {
+            "defaultValue": null,
+            "type": "SecureString"
+        },
+        "availabilitySets_AS_OpenVPN_name": {
+            "defaultValue": "AS-OpenVPN",
+            "type": "String"
+        },
+        "availabilitySets_AS_PRDApp_name": {
+            "defaultValue": "AS-PRDApp",
+            "type": "String"
+        },
+        "availabilitySets_AS_PRDLoadBalancer_name": {
+            "defaultValue": "AS-PRDLoadBalancer",
+            "type": "String"
+        },
+        "availabilitySets_AS_PRODData_name": {
+            "defaultValue": "AS-PRODData",
+            "type": "String"
+        },
+        "availabilitySets_AS_UATAppData_name": {
+            "defaultValue": "AS-UATAppData",
+            "type": "String"
+        },
+        "virtualMachines_azaub_opvmas01_name": {
+            "defaultValue": "azaub-opvmas01",
+            "type": "String"
+        },
+        "virtualMachines_azaub_prdelb01_name": {
+            "defaultValue": "azaub-prdelb01",
+            "type": "String"
+        },
+        "virtualMachines_azaub_prdsql01_name": {
+            "defaultValue": "azaub-prdsql01",
+            "type": "String"
+        },
+        "virtualMachines_azaub_prdwww01_name": {
+            "defaultValue": "azaub-prdwww01",
+            "type": "String"
+        },
+        "virtualMachines_azaub_prdwww02_name": {
+            "defaultValue": "azaub-prdwww02",
+            "type": "String"
+        },
+        "virtualMachines_azaub_uatdkr01_name": {
+            "defaultValue": "azaub-uatdkr01",
+            "type": "String"
+        },
+        "networkInterfaces_azaub_prdelb01867_name": {
+            "defaultValue": "azaub-prdelb01867",
+            "type": "String"
+        },
+        "networkInterfaces_azaub_prdsql01209_name": {
+            "defaultValue": "azaub-prdsql01209",
+            "type": "String"
+        },
+        "networkInterfaces_azaub_prdwww01449_name": {
+            "defaultValue": "azaub-prdwww01449",
+            "type": "String"
+        },
+        "networkInterfaces_azaub_prdwww02192_name": {
+            "defaultValue": "azaub-prdwww02192",
+            "type": "String"
+        },
+        "networkInterfaces_azaub_uatdkr01101_name": {
+            "defaultValue": "azaub-uatdkr01101",
+            "type": "String"
+        },
+        "networkInterfaces_azaub_uatdkr01144_name": {
+            "defaultValue": "azaub-uatdkr01144",
+            "type": "String"
+        },
+        "networkInterfaces_bak_prdwww02_nic_2b66f6d2306d42eab9849fccf3808dff_name": {
+            "defaultValue": "bak-prdwww02-nic-2b66f6d2306d42eab9849fccf3808dff",
+            "type": "String"
+        },
+        "networkInterfaces_NIC_azaub_opvmas01_01_name": {
+            "defaultValue": "NIC-azaub-opvmas01-01",
+            "type": "String"
+        },
+        "networkInterfaces_prod_test_01461_name": {
+            "defaultValue": "prod-test-01461",
+            "type": "String"
+        },
+        "networkInterfaces_prod_test_01795_name": {
+            "defaultValue": "prod-test-01795",
+            "type": "String"
+        },
+        "networkInterfaces_prod_test01707_name": {
+            "defaultValue": "prod-test01707",
+            "type": "String"
+        },
+        "networkSecurityGroups_NSG_DMZ_name": {
+            "defaultValue": "NSG-DMZ",
+            "type": "String"
+        },
+        "networkSecurityGroups_NSG_OpenVPN_name": {
+            "defaultValue": "NSG-OpenVPN",
+            "type": "String"
+        },
+        "networkSecurityGroups_NSG_ProductionApp_name": {
+            "defaultValue": "NSG-ProductionApp",
+            "type": "String"
+        },
+        "networkSecurityGroups_NSG_ProductionData_name": {
+            "defaultValue": "NSG-ProductionData",
+            "type": "String"
+        },
+        "networkSecurityGroups_NSG_UATAppData_name": {
+            "defaultValue": "NSG-UATAppData",
+            "type": "String"
+        },
+        "publicIPAddresses_PublicIP_azaub_opvmas01_name": {
+            "defaultValue": "PublicIP-azaub-opvmas01",
+            "type": "String"
+        },
+        "publicIPAddresses_PublicIP_azaub_prdelb01_name": {
+            "defaultValue": "PublicIP-azaub-prdelb01",
+            "type": "String"
+        },
+        "publicIPAddresses_PublicIP_azaub_uatdkr01_name": {
+            "defaultValue": "PublicIP-azaub-uatdkr01",
+            "type": "String"
+        },
+        "publicIPAddresses_www02_test_name": {
+            "defaultValue": "www02-test",
+            "type": "String"
+        },
+        "virtualNetworks_VNetAubainerie_name": {
+            "defaultValue": "VNetAubainerie",
+            "type": "String"
+        },
+        "vaults_aubainerie_recovery_name": {
+            "defaultValue": "aubainerie-recovery",
+            "type": "String"
+        },
+        "storageAccounts_storageaccountdiag_name": {
+            "defaultValue": "storageaccountdiag",
+            "type": "String"
+        },
+        "storageAccounts_storageaccountmedia_name": {
+            "defaultValue": "storageaccountmedia",
+            "type": "String"
+        },
+        "storageAccounts_storageaccountopenvpn_name": {
+            "defaultValue": "storageaccountopenvpn",
+            "type": "String"
+        },
+        "storageAccounts_storageaccountprodapp_name": {
+            "defaultValue": "storageaccountprodapp",
+            "type": "String"
+        },
+        "storageAccounts_storageaccountproddata_name": {
+            "defaultValue": "storageaccountproddata",
+            "type": "String"
+        },
+        "storageAccounts_storageaccountprodelb_name": {
+            "defaultValue": "storageaccountprodelb",
+            "type": "String"
+        },
+        "storageAccounts_storageaccountrestore_name": {
+            "defaultValue": "storageaccountrestore",
+            "type": "String"
+        },
+        "storageAccounts_storageaccountuat_name": {
+            "defaultValue": "storageaccountuat",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/availabilitySets/AS-OpenVPN'.",
+            "type": "Microsoft.Compute/availabilitySets",
+            "name": "[parameters('availabilitySets_AS_OpenVPN_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 3
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/availabilitySets/AS-PRDApp'.",
+            "type": "Microsoft.Compute/availabilitySets",
+            "name": "[parameters('availabilitySets_AS_PRDApp_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 3
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/availabilitySets/AS-PRDLoadBalancer'.",
+            "type": "Microsoft.Compute/availabilitySets",
+            "name": "[parameters('availabilitySets_AS_PRDLoadBalancer_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 3
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/availabilitySets/AS-PRODData'.",
+            "type": "Microsoft.Compute/availabilitySets",
+            "name": "[parameters('availabilitySets_AS_PRODData_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 3
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/availabilitySets/AS-UATAppData'.",
+            "type": "Microsoft.Compute/availabilitySets",
+            "name": "[parameters('availabilitySets_AS_UATAppData_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "properties": {
+                "platformUpdateDomainCount": 5,
+                "platformFaultDomainCount": 3
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/virtualMachines/azaub-opvmas01'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_azaub_opvmas01_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "tags": {
+                "1": "Web Node 02",
+                "environment": "ops",
+                "name": "azaub-opvmas01",
+                "Description": "OpenVPN Server"
+            },
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_A3"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "14.04.4-LTS",
+                        "version": "14.04.201602220"
+                    },
+                    "osDisk": {
+                        "name": "clib8e8a75f8dabb584-os-1456523596963",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountopenvpn_name'), '.blob.core.windows.net', '/vhds/clib8e8a75f8dabb584-os-1456523596963.vhd')]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": [
+                        {
+                            "lun": 0,
+                            "name": "[concat(parameters('virtualMachines_azaub_opvmas01_name'),'-20160226-165316964')]",
+                            "createOption": "Empty",
+                            "vhd": {
+                                "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountopenvpn_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_opvmas01_name'),'-20160226-165316964.vhd'))]"
+                            },
+                            "caching": "ReadWrite",
+                            "diskSizeGB": 60
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_azaub_opvmas01_name')]",
+                    "adminUsername": "ops",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": false
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_azaub_opvmas01_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_NIC_azaub_opvmas01_01_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountopenvpn_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_NIC_azaub_opvmas01_01_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/virtualMachines/azaub-prdelb01'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_azaub_prdelb01_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "tags": {
+                "1": "2",
+                "Description": "Production Load Balancer"
+            },
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_PRDLoadBalancer_name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_D1"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "14.04.4-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_azaub_prdelb01_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountprodelb_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_prdelb01_name'),'20162299958.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_azaub_prdelb01_name')]",
+                    "adminUsername": "ops",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "path": "/home/ops/.ssh/authorized_keys",
+                                    "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf4Fg3OUjNTAvA5CGbZyZfgeZykfcGdHJ1ukkwYoohjcB2ts3mo63Q3e1JlPZOTJadMx6esjvTSLACpcm2d1A/TiIc7A1urXAFduCmy9tnwr2Z1hisjSg+oMboHwjPYRs/xCVb73VPiWx//L+22+M6hOp9tD9AUDWoLL8D/aEurpoNNLCyziWOOkauVn5ZHJWui6o6zQfypuqb3XNHfvxrWFUfO1W2HnZ5Opz7weflFwoDv+eyYs3+x+eAzARNqI7LIUGjERmuiyBAxJk49BvY8A/2LGBp8wlkp3UpG+rbsgCYS0zNEfPsslzOXLjAfea0nwEbHF4POURVP6IDB5B1"
+                                }
+                            ]
+                        }
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_azaub_prdelb01_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_prdelb01867_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_PRDLoadBalancer_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountprodelb_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_prdelb01867_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/virtualMachines/azaub-prdsql01'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_azaub_prdsql01_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "tags": {
+                "1": "2",
+                "Description": "Production Database"
+            },
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_PRODData_name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_DS3"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "14.04.4-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_azaub_prdsql01_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountproddata_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_prdsql01_name'),'2016389463.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": [
+                        {
+                            "lun": 0,
+                            "name": "[concat(parameters('virtualMachines_azaub_prdsql01_name'),'-data')]",
+                            "createOption": "Empty",
+                            "vhd": {
+                                "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountproddata_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_prdsql01_name'),'-data.vhd'))]"
+                            },
+                            "caching": "ReadOnly",
+                            "diskSizeGB": 1023
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_azaub_prdsql01_name')]",
+                    "adminUsername": "ops",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "path": "/home/ops/.ssh/authorized_keys",
+                                    "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf4Fg3OUjNTAvA5CGbZyZfgeZykfcGdHJ1ukkwYoohjcB2ts3mo63Q3e1JlPZOTJadMx6esjvTSLACpcm2d1A/TiIc7A1urXAFduCmy9tnwr2Z1hisjSg+oMboHwjPYRs/xCVb73VPiWx//L+22+M6hOp9tD9AUDWoLL8D/aEurpoNNLCyziWOOkauVn5ZHJWui6o6zQfypuqb3XNHfvxrWFUfO1W2HnZ5Opz7weflFwoDv+eyYs3+x+eAzARNqI7LIUGjERmuiyBAxJk49BvY8A/2LGBp8wlkp3UpG+rbsgCYS0zNEfPsslzOXLjAfea0nwEbHF4POURVP6IDB5B1"
+                                }
+                            ]
+                        }
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_azaub_prdsql01_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "properties": {
+                                "primary": "[parameters('virtualMachines_azaub_prdsql01_primary')]"
+                            },
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_prdsql01209_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_PRODData_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountproddata_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_prdsql01209_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/virtualMachines/azaub-prdwww01'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_azaub_prdwww01_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "tags": {
+                "1": "2",
+                "description": "Production Node 01"
+            },
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_PRDApp_name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_DS4"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "14.04.4-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_azaub_prdwww01_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountprodapp_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_prdwww01_name'),'2016231143221.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": [
+                        {
+                            "lun": 0,
+                            "name": "[concat(parameters('virtualMachines_azaub_prdwww01_name'),'-app')]",
+                            "createOption": "Empty",
+                            "vhd": {
+                                "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountprodapp_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_prdwww01_name'),'-app.vhd'))]"
+                            },
+                            "caching": "ReadOnly",
+                            "diskSizeGB": 1023
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_azaub_prdwww01_name')]",
+                    "adminUsername": "ops",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "path": "/home/ops/.ssh/authorized_keys",
+                                    "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf4Fg3OUjNTAvA5CGbZyZfgeZykfcGdHJ1ukkwYoohjcB2ts3mo63Q3e1JlPZOTJadMx6esjvTSLACpcm2d1A/TiIc7A1urXAFduCmy9tnwr2Z1hisjSg+oMboHwjPYRs/xCVb73VPiWx//L+22+M6hOp9tD9AUDWoLL8D/aEurpoNNLCyziWOOkauVn5ZHJWui6o6zQfypuqb3XNHfvxrWFUfO1W2HnZ5Opz7weflFwoDv+eyYs3+x+eAzARNqI7LIUGjERmuiyBAxJk49BvY8A/2LGBp8wlkp3UpG+rbsgCYS0zNEfPsslzOXLjAfea0nwEbHF4POURVP6IDB5B1"
+                                }
+                            ]
+                        }
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_azaub_prdwww01_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "properties": {
+                                "primary": "[parameters('virtualMachines_azaub_prdwww01_primary')]"
+                            },
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_prdwww01449_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_PRDApp_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountprodapp_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_prdwww01449_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/virtualMachines/azaub-prdwww02'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_azaub_prdwww02_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "tags": {
+                "1": "2",
+                "Description": "Web Node 02"
+            },
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_PRDApp_name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_DS11"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "14.04.4-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_azaub_prdwww02_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountprodapp_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_prdwww02_name'),'2016231153912.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": [
+                        {
+                            "lun": 0,
+                            "name": "[concat(parameters('virtualMachines_azaub_prdwww02_name'),'-app')]",
+                            "createOption": "Empty",
+                            "vhd": {
+                                "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountprodapp_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_prdwww02_name'),'-app.vhd'))]"
+                            },
+                            "caching": "ReadOnly",
+                            "diskSizeGB": 1023
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_azaub_prdwww02_name')]",
+                    "adminUsername": "ops",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "path": "/home/ops/.ssh/authorized_keys",
+                                    "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf4Fg3OUjNTAvA5CGbZyZfgeZykfcGdHJ1ukkwYoohjcB2ts3mo63Q3e1JlPZOTJadMx6esjvTSLACpcm2d1A/TiIc7A1urXAFduCmy9tnwr2Z1hisjSg+oMboHwjPYRs/xCVb73VPiWx//L+22+M6hOp9tD9AUDWoLL8D/aEurpoNNLCyziWOOkauVn5ZHJWui6o6zQfypuqb3XNHfvxrWFUfO1W2HnZ5Opz7weflFwoDv+eyYs3+x+eAzARNqI7LIUGjERmuiyBAxJk49BvY8A/2LGBp8wlkp3UpG+rbsgCYS0zNEfPsslzOXLjAfea0nwEbHF4POURVP6IDB5B1"
+                                }
+                            ]
+                        }
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_azaub_prdwww02_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "properties": {
+                                "primary": "[parameters('virtualMachines_azaub_prdwww02_primary')]"
+                            },
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_prdwww02192_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_PRDApp_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountprodapp_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_prdwww02192_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/virtualMachines/azaub-uatdkr01'.",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[parameters('virtualMachines_azaub_uatdkr01_name')]",
+            "apiVersion": "2015-06-15",
+            "location": "eastus",
+            "tags": {
+                "1": "2",
+                "Description": "UAT Environment"
+            },
+            "properties": {
+                "availabilitySet": {
+                    "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_UATAppData_name'))]"
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_DS11"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "14.04.3-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "name": "[parameters('virtualMachines_azaub_uatdkr01_name')]",
+                        "createOption": "FromImage",
+                        "vhd": {
+                            "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountuat_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_uatdkr01_name'),'20162121165.vhd'))]"
+                        },
+                        "caching": "ReadWrite"
+                    },
+                    "dataDisks": [
+                        {
+                            "lun": 0,
+                            "name": "[concat(parameters('virtualMachines_azaub_uatdkr01_name'),'-data')]",
+                            "createOption": "Empty",
+                            "vhd": {
+                                "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountuat_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_uatdkr01_name'),'-data.vhd'))]"
+                            },
+                            "caching": "ReadOnly",
+                            "diskSizeGB": 1023
+                        },
+                        {
+                            "lun": 2,
+                            "name": "[concat(parameters('virtualMachines_azaub_uatdkr01_name'),'-20160414-202711860')]",
+                            "createOption": "Empty",
+                            "vhd": {
+                                "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountmedia_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_uatdkr01_name'),'-20160414-202711860.vhd'))]"
+                            },
+                            "caching": "ReadWrite",
+                            "diskSizeGB": 1023
+                        }
+                    ]
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_azaub_uatdkr01_name')]",
+                    "adminUsername": "ops",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": true,
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "path": "/home/ops/.ssh/authorized_keys",
+                                    "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDaJBuO+L32MbYniNvNk2hHTHdrraHAyhfNp84i2HtWzga8sa5vD+v6m3NYbBZlJWyq9xxpKkMK+QUFd1tB4bcJX+ZKp6WF9GZDhLZcZiU4DQndG1e9Gf8kMnAPkOAeyjSkS/BUAjevzDZLd1h8AkLC8hu1Hn1bSbowyeBJf3gBTa9zXbsfiprrC94w65pJlsErGqxkxm/01mkNWBYt9nBh68hfIfkeu+PhIIWZmnXpTTBOVcWuJeQOwtNa4qGh11/lXsRZ6bP9/TOvKAbS0846oz7HBFmdedYTKWCtU37yg74whh2dr6IIV8sU+ntCCp2I4bwTDh2r1NGWhSyMf0jYLvqRLsKIppftBwGzSgYycglpNoYb2AcYgDM3C64B68hltNEYerAd/74E1VIRL8yLoPUMksHWtV9o1eWZ8g8MZ65nVR+g2FDSVzbZUA3fdsRJAmEN3hY6uelcm5hcb1NbR/iBD3KjYH2EY5BiGWKQsCsKPxTphTsESwuMh0HBsghsKg4Rz2/UkWrnj1ONl8yYSpBoWto/oN31+671MyoGeRXG3njR/saIyLjMZIQgoAq7+hlVDfaJvSExRbW5kuQxgjXGtDZELbBj9WCbiVvMnlH930U0DxR5Ubcx6iP5Xs9COSGpyqKOhbCz2SjTy0LQMPbnkFzFuTi2gkmAnaH0xw=="
+                                }
+                            ]
+                        }
+                    },
+                    "secrets": [],
+                    "adminPassword": "[parameters('virtualMachines_azaub_uatdkr01_adminPassword')]"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_uatdkr01101_name'))]"
+                        }
+                    ]
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_UATAppData_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountuat_name'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountmedia_name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_uatdkr01101_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/azaub-prdelb01867'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_azaub_prdelb01867_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "172.16.1.4",
+                            "privateIPAllocationMethod": "Static",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_PublicIP_azaub_prdelb01_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-DMZ')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_PublicIP_azaub_prdelb01_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/azaub-prdsql01209'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_azaub_prdsql01209_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "172.16.40.140",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-ProductionData')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/azaub-prdwww01449'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_azaub_prdwww01449_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "172.16.40.10",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-ProductionApp')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/azaub-prdwww02192'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_azaub_prdwww02192_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "172.16.40.20",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-ProductionApp')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/azaub-uatdkr01101'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_azaub_uatdkr01101_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "tags": {},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "172.16.30.5",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-UATAppData')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/azaub-uatdkr01144'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_azaub_uatdkr01144_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "172.16.30.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-UATAppData')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/bak-prdwww02-nic-2b66f6d2306d42eab9849fccf3808dff'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_bak_prdwww02_nic_2b66f6d2306d42eab9849fccf3808dff_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "tags": {},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ae6819982e35464c9a1349b6edd9a93c",
+                        "properties": {
+                            "privateIPAddress": "172.16.40.132",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-ProductionData')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/NIC-azaub-opvmas01-01'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_NIC_azaub_opvmas01_01_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "Nic-IP-config",
+                        "properties": {
+                            "privateIPAddress": "172.16.10.132",
+                            "privateIPAllocationMethod": "Static",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_PublicIP_azaub_opvmas01_name'))]"
+                            },
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-OpenVPN')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false,
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_OpenVPN_name'))]"
+                }
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_PublicIP_azaub_opvmas01_name'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_OpenVPN_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/prod-test-01461'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_prod_test_01461_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "172.16.40.6",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-ProductionApp')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/prod-test-01795'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_prod_test_01795_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "172.16.40.5",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-ProductionApp')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/prod-test01707'.",
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[parameters('networkInterfaces_prod_test01707_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "172.16.40.4",
+                            "privateIPAllocationMethod": "Dynamic",
+                            "subnet": {
+                                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-ProductionApp')]"
+                            }
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": []
+                },
+                "enableIPForwarding": false
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkSecurityGroups/NSG-DMZ'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_NSG_DMZ_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "tags": {},
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Ingress-Deny-All",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Egress-Deny-All",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 1000,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-OpenVPN-Any",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "172.16.10.132/32",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 801,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Egress-Allow-HTTP",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 998,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Egress-Allow-SSH",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 950,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Egress-Allow-APTKey",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "11371",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 900,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Egress-Allow-HTTPS",
+                        "properties": {
+                            "description": "",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 999,
+                            "direction": "Outbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-SSH-Jenkins",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "172.16.30.5/32",
+                            "destinationAddressPrefix": "172.16.1.4/32",
+                            "access": "Allow",
+                            "priority": 800,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-HTTPS-Jenkins",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "172.16.30.5/32",
+                            "destinationAddressPrefix": "172.16.1.4/32",
+                            "access": "Allow",
+                            "priority": 700,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Varnish-WWW01",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "8080",
+                            "sourceAddressPrefix": "172.16.40.10/32",
+                            "destinationAddressPrefix": "172.16.1.4/32",
+                            "access": "Allow",
+                            "priority": 600,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Varnish-WWW02",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "8080",
+                            "sourceAddressPrefix": "172.16.40.20/32",
+                            "destinationAddressPrefix": "172.16.1.4/32",
+                            "access": "Allow",
+                            "priority": 599,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Warmup-WWW01",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "172.16.40.10/32",
+                            "destinationAddressPrefix": "172.16.1.4/32",
+                            "access": "Allow",
+                            "priority": 598,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Warmup-WWW02",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "172.16.40.20/32",
+                            "destinationAddressPrefix": "172.16.1.4/32",
+                            "access": "Allow",
+                            "priority": 597,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Nurun",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "216.113.12.98/32",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 999,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-HTTPS",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 901,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-HTTP",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 900,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Egress-Allow-Docker-Registry",
+                        "properties": {
+                            "description": "",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "5000",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "52.206.201.16/32",
+                            "access": "Allow",
+                            "priority": 800,
+                            "direction": "Outbound"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkSecurityGroups/NSG-OpenVPN'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_NSG_OpenVPN_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "tags": {
+                "Name": "NSG-OpenVPN"
+            },
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Ingress-Deny",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-OpenVPN-Client",
+                        "properties": {
+                            "protocol": "Udp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "1194",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "172.16.10.132/32",
+                            "access": "Allow",
+                            "priority": 990,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-OpenVPN-Web",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "943",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "172.16.10.132/32",
+                            "access": "Allow",
+                            "priority": 989,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Nurun-Any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "216.113.12.98/32",
+                            "destinationAddressPrefix": "172.16.10.132/32",
+                            "access": "Allow",
+                            "priority": 999,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Aubainerie-Any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "173.246.71.202/32",
+                            "destinationAddressPrefix": "172.16.10.132/32",
+                            "access": "Allow",
+                            "priority": 998,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-AubainerieCD-Any",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "45.61.1.242/32",
+                            "destinationAddressPrefix": "172.16.10.132/32",
+                            "access": "Allow",
+                            "priority": 997,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkSecurityGroups/NSG-ProductionApp'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_NSG_ProductionApp_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "tags": {},
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Ingress-Deny",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-OpenVPN",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "172.16.10.128/25",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 900,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-HTTP-LoadBalancer",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "172.16.1.4/32",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 800,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-SSH-WWW01-Jenkins",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "172.16.30.5/32",
+                            "destinationAddressPrefix": "172.16.40.10/32",
+                            "access": "Allow",
+                            "priority": 700,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-SSH-WWW02-Jenkins",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "172.16.30.5/32",
+                            "destinationAddressPrefix": "172.16.40.20/32",
+                            "access": "Allow",
+                            "priority": 699,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-All-Local",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "172.16.40.0/25",
+                            "destinationAddressPrefix": "172.16.40.0/25",
+                            "access": "Allow",
+                            "priority": 999,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkSecurityGroups/NSG-ProductionData'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_NSG_ProductionData_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "tags": {},
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Ingress-Deny",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Deny",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-OpenVPN",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "172.16.10.128/25",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 900,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-MySQL-WWW01",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3306",
+                            "sourceAddressPrefix": "172.16.40.10/32",
+                            "destinationAddressPrefix": "172.16.40.140/32",
+                            "access": "Allow",
+                            "priority": 800,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-MySQL-WWW02",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "3306",
+                            "sourceAddressPrefix": "172.16.40.20/32",
+                            "destinationAddressPrefix": "172.16.40.140/32",
+                            "access": "Allow",
+                            "priority": 799,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Solr-WWW01",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "8983",
+                            "sourceAddressPrefix": "172.16.40.10/32",
+                            "destinationAddressPrefix": "172.16.40.140/32",
+                            "access": "Allow",
+                            "priority": 600,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Solr-WWW02",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "8983",
+                            "sourceAddressPrefix": "172.16.40.20/32",
+                            "destinationAddressPrefix": "172.16.40.140/32",
+                            "access": "Allow",
+                            "priority": 599,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Redis-WWW01",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "6379",
+                            "sourceAddressPrefix": "172.16.40.10/32",
+                            "destinationAddressPrefix": "172.16.40.140/32",
+                            "access": "Allow",
+                            "priority": 500,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-Redis-WWW02",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "6379",
+                            "sourceAddressPrefix": "172.16.40.20/32",
+                            "destinationAddressPrefix": "172.16.40.140/32",
+                            "access": "Allow",
+                            "priority": 499,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-NFS-WWW01",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "2049",
+                            "sourceAddressPrefix": "172.16.40.10/32",
+                            "destinationAddressPrefix": "172.16.40.140/32",
+                            "access": "Allow",
+                            "priority": 798,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-NFS-WWW02",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "2049",
+                            "sourceAddressPrefix": "172.16.40.20/32",
+                            "destinationAddressPrefix": "172.16.40.140/32",
+                            "access": "Allow",
+                            "priority": 797,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-RPC-WWW01",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "111",
+                            "sourceAddressPrefix": "172.16.40.10/32",
+                            "destinationAddressPrefix": "172.16.40.140/32",
+                            "access": "Allow",
+                            "priority": 796,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-RPC-WWW02",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "111",
+                            "sourceAddressPrefix": "172.16.40.20/32",
+                            "destinationAddressPrefix": "172.16.40.140/32",
+                            "access": "Allow",
+                            "priority": 795,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkSecurityGroups/NSG-UATAppData'.",
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[parameters('networkSecurityGroups_NSG_UATAppData_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "tags": {},
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "Ingress-Deny",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 1000,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-OpenVPN-Any",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "172.16.10.132/32",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 990,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-NFS-WWW01",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "2049",
+                            "sourceAddressPrefix": "172.16.40.10/32",
+                            "destinationAddressPrefix": "172.16.30.5/32",
+                            "access": "Allow",
+                            "priority": 800,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-NFS-WWW02",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "2049",
+                            "sourceAddressPrefix": "172.16.40.20/32",
+                            "destinationAddressPrefix": "172.16.30.5/32",
+                            "access": "Allow",
+                            "priority": 799,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-OpenVPNDocker-Any",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "172.17.0.0/16",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 991,
+                            "direction": "Inbound"
+                        }
+                    },
+                    {
+                        "name": "Ingress-Allow-OpenVPNUsers-Any",
+                        "properties": {
+                            "protocol": "TCP",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "192.168.88.0/24",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 992,
+                            "direction": "Inbound"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/publicIPAddresses/PublicIP-azaub-opvmas01'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_PublicIP_azaub_opvmas01_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "aubainerie-secure"
+                }
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/publicIPAddresses/PublicIP-azaub-prdelb01'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_PublicIP_azaub_prdelb01_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "aubainerie-lb"
+                }
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/publicIPAddresses/PublicIP-azaub-uatdkr01'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_PublicIP_azaub_uatdkr01_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "tags": {},
+            "properties": {
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/publicIPAddresses/www02-test'.",
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[parameters('publicIPAddresses_www02_test_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4
+            },
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/virtualNetworks/VNetAubainerie'.",
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[parameters('virtualNetworks_VNetAubainerie_name')]",
+            "apiVersion": "2016-03-30",
+            "location": "eastus",
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "172.16.0.0/16"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "Subnet-OpenVPN",
+                        "properties": {
+                            "addressPrefix": "172.16.10.128/25",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_OpenVPN_name'))]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Subnet-ProductionApp",
+                        "properties": {
+                            "addressPrefix": "172.16.40.0/25",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ProductionApp_name'))]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Subnet-ProductionData",
+                        "properties": {
+                            "addressPrefix": "172.16.40.128/25",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ProductionData_name'))]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Subnet-UATAppData",
+                        "properties": {
+                            "addressPrefix": "172.16.30.0/24",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_UATAppData_name'))]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Subnet-DMZ",
+                        "properties": {
+                            "addressPrefix": "172.16.1.0/28",
+                            "networkSecurityGroup": {
+                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_DMZ_name'))]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "Subnet-AG",
+                        "properties": {
+                            "addressPrefix": "172.16.2.0/28"
+                        }
+                    }
+                ]
+            },
+            "resources": [],
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_OpenVPN_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ProductionApp_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_ProductionData_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_UATAppData_name'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_NSG_DMZ_name'))]"
+            ]
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.RecoveryServices/vaults/aubainerie-recovery'.",
+            "type": "Microsoft.RecoveryServices/vaults",
+            "sku": {
+                "name": "RS0",
+                "tier": "Standard"
+            },
+            "name": "[parameters('vaults_aubainerie_recovery_name')]",
+            "apiVersion": "2016-06-01",
+            "location": "eastus",
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Storage/storageAccounts/storageaccountdiag'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_storageaccountdiag_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Storage/storageAccounts/storageaccountmedia'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "Premium"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_storageaccountmedia_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Storage/storageAccounts/storageaccountopenvpn'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_storageaccountopenvpn_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Storage/storageAccounts/storageaccountprodapp'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "Premium"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_storageaccountprodapp_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Storage/storageAccounts/storageaccountproddata'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "Premium"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_storageaccountproddata_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Storage/storageAccounts/storageaccountprodelb'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_storageaccountprodelb_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Storage/storageAccounts/storageaccountrestore'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_storageaccountrestore_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        },
+        {
+            "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Storage/storageAccounts/storageaccountuat'.",
+            "type": "Microsoft.Storage/storageAccounts",
+            "sku": {
+                "name": "Premium_LRS",
+                "tier": "Premium"
+            },
+            "kind": "Storage",
+            "name": "[parameters('storageAccounts_storageaccountuat_name')]",
+            "apiVersion": "2016-01-01",
+            "location": "eastus",
+            "tags": {},
+            "properties": {},
+            "resources": [],
+            "dependsOn": []
+        }
+    ]
+}

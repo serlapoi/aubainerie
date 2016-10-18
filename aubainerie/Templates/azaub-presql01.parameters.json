@@ -1,0 +1,30 @@
+﻿{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualMachines_azaub_presql01_adminPassword": {
+      "value": "nurun123!"
+    },
+    "virtualMachines_azaub_presql01_primary": {
+      "value": true
+    },
+    "availabilitySets_AS_PREData_name": {
+      "value": "AS-PREData"
+    },
+    "virtualMachines_azaub_presql01_name": {
+      "value": "azaub-presql01"
+    },
+    "networkInterfaces_azaub_presql01209_name": {
+      "value": "azaub-presql01209"
+    },
+    "networkSecurityGroups_NSG_PreData_name": {
+      "value": "NSG-PreData"
+    },
+    "virtualNetworks_VNetAubainerie_name": {
+      "value": "VNetAubainerie"
+    },
+    "storageAccounts_storageaccountpredata_name": {
+      "value": "storageaccountpredata"
+    }
+  }
+}

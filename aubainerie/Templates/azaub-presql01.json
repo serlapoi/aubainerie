@@ -1,0 +1,196 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "virtualMachines_azaub_presql01_adminPassword": {
+      "type": "securestring"
+    },
+    "virtualMachines_azaub_presql01_primary": {
+      "type": "bool"
+    },
+    "availabilitySets_AS_PREData_name": {
+      "type": "string"
+    },
+    "virtualMachines_azaub_presql01_name": {
+      "type": "string"
+    },
+    "networkInterfaces_azaub_presql01209_name": {
+      "type": "string"
+    },
+    "networkSecurityGroups_NSG_PreData_name": {
+      "type": "string"
+    },
+    "virtualNetworks_VNetAubainerie_name": {
+      "type": "string"
+    },
+    "storageAccounts_storageaccountpredata_name": {
+      "type": "string"
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/availabilitySets/AS-PRODData'.",
+      "type": "Microsoft.Compute/availabilitySets",
+      "name": "[parameters('availabilitySets_AS_PREData_name')]",
+      "apiVersion": "2015-06-15",
+      "location": "eastus",
+      "properties": {
+        "platformUpdateDomainCount": 5,
+        "platformFaultDomainCount": 3
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Compute/virtualMachines/azaub-presql01'.",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[parameters('virtualMachines_azaub_presql01_name')]",
+      "apiVersion": "2015-06-15",
+      "location": "eastus",
+      "tags": {
+        "1": "2",
+        "Description": "Pre Database"
+      },
+      "properties": {
+        "availabilitySet": {
+          "id": "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_PREData_name'))]"
+        },
+        "hardwareProfile": {
+          "vmSize": "Standard_DS1"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "Canonical",
+            "offer": "UbuntuServer",
+            "sku": "14.04.4-LTS",
+            "version": "latest"
+          },
+          "osDisk": {
+            "name": "[parameters('virtualMachines_azaub_presql01_name')]",
+            "createOption": "FromImage",
+            "vhd": {
+              "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountpredata_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_presql01_name'),'2016389463.vhd'))]"
+            },
+            "caching": "ReadWrite"
+          },
+          "dataDisks": [
+            {
+              "lun": 0,
+              "name": "[concat(parameters('virtualMachines_azaub_presql01_name'),'-data')]",
+              "createOption": "Empty",
+              "vhd": {
+                "uri": "[concat('https', '://', parameters('storageAccounts_storageaccountpredata_name'), '.blob.core.windows.net', concat('/vhds/', parameters('virtualMachines_azaub_presql01_name'),'-data.vhd'))]"
+              },
+              "caching": "ReadOnly",
+              "diskSizeGB": "127"
+            }
+          ]
+        },
+        "osProfile": {
+          "computerName": "[parameters('virtualMachines_azaub_presql01_name')]",
+          "adminUsername": "serge.lapointe",
+          "linuxConfiguration": {
+            "disablePasswordAuthentication": true,
+            "ssh": {
+              "publicKeys": [
+                {
+                  "path": "/home/ops/.ssh/authorized_keys",
+                  "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDf4Fg3OUjNTAvA5CGbZyZfgeZykfcGdHJ1ukkwYoohjcB2ts3mo63Q3e1JlPZOTJadMx6esjvTSLACpcm2d1A/TiIc7A1urXAFduCmy9tnwr2Z1hisjSg+oMboHwjPYRs/xCVb73VPiWx//L+22+M6hOp9tD9AUDWoLL8D/aEurpoNNLCyziWOOkauVn5ZHJWui6o6zQfypuqb3XNHfvxrWFUfO1W2HnZ5Opz7weflFwoDv+eyYs3+x+eAzARNqI7LIUGjERmuiyBAxJk49BvY8A/2LGBp8wlkp3UpG+rbsgCYS0zNEfPsslzOXLjAfea0nwEbHF4POURVP6IDB5B1"
+                }
+              ]
+            }
+          },
+          "secrets": [],
+          "adminPassword": "[parameters('virtualMachines_azaub_presql01_adminPassword')]"
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "properties": {
+                "primary": "[parameters('virtualMachines_azaub_presql01_primary')]"
+              },
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_presql01209_name'))]"
+            }
+          ]
+        }
+      },
+      "resources": [],
+      "dependsOn": [
+        "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySets_AS_PREData_name'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_storageaccountpredata_name'))]",
+        "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_azaub_presql01209_name'))]"
+      ]
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkInterfaces/azaub-presql01209'.",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[parameters('networkInterfaces_azaub_presql01209_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "eastus",
+      "properties": {
+        "ipConfigurations": [
+          {
+            "name": "ipconfig1",
+            "properties": {
+              "privateIPAddress": "172.16.30.140",
+              "privateIPAllocationMethod": "Static",
+              "subnet": {
+                "id": "[concat(resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_VNetAubainerie_name')), '/subnets/Subnet-UATAppData')]"
+              }
+            }
+          }
+        ],
+        "dnsSettings": {
+          "dnsServers": []
+        },
+        "enableIPForwarding": false
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Network/networkSecurityGroups/NSG-PreData'.",
+      "type": "Microsoft.Network/networkSecurityGroups",
+      "name": "[parameters('networkSecurityGroups_NSG_PreData_name')]",
+      "apiVersion": "2016-03-30",
+      "location": "eastus",
+      "tags": {},
+      "properties": {
+        "securityRules": [
+          {
+            "name": "Ingress-Allow-MySQL-WWW01",
+            "properties": {
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "3306",
+              "sourceAddressPrefix": "172.16.30.10/32",
+              "destinationAddressPrefix": "172.16.30.140/32",
+              "access": "Allow",
+              "priority": 800,
+              "direction": "Inbound"
+            }
+          }
+        ]
+      },
+      "resources": [],
+      "dependsOn": []
+    },
+    {
+      "comments": "Generalized from resource: '/subscriptions/1ddb65eb-e72f-4607-bcf5-89238f5b6c5c/resourceGroups/aubainerie.com/providers/Microsoft.Storage/storageAccounts/storageaccountpredata'.",
+      "type": "Microsoft.Storage/storageAccounts",
+      "sku": {
+        "name": "Premium_LRS",
+        "tier": "Premium"
+      },
+      "kind": "Storage",
+      "name": "[parameters('storageAccounts_storageaccountpredata_name')]",
+      "apiVersion": "2016-01-01",
+      "location": "eastus",
+      "tags": {},
+      "properties": {},
+      "resources": [],
+      "dependsOn": []
+    }
+  ]
+}
